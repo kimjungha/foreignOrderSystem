@@ -1,12 +1,32 @@
 package tobyspring.hellospring;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan
 public class ObjectFactory {
+    @Bean
     public PaymentService paymentService() {
         return new PaymentService(exRateProvider());
     }
 
-    /** new 하는것도 분리하여 2개 메서드로 구성 -> 관심사 분리, 메서드가 명확해짐 */
+    @Bean
+    public OrderService orderService() {
+        return new OrderService(exRateProvider());
+    }
+
+   @Bean
     public ExRateProvider exRateProvider(){
-        return new WebApiExRatePaymentProvider();
+        return new SimpleExRateProvider();
+    }
+
+     class OrderService{
+        ExRateProvider exRateProvider;
+
+        public OrderService(ExRateProvider exRateProvider) {
+            this.exRateProvider = exRateProvider;
+        }
     }
 }

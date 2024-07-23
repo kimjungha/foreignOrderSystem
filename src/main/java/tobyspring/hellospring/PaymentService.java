@@ -1,11 +1,13 @@
 package tobyspring.hellospring;
 
+import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
  public class PaymentService {
-    private final ExRateProvider exRateProvider;
+    ExRateProvider exRateProvider;
 
      public PaymentService(ExRateProvider exRateProvider) {
          // request 주입으로 관심사 분리
